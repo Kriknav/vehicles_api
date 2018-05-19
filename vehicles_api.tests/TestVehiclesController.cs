@@ -74,6 +74,7 @@ namespace vehicles_api.tests
 
         public TestVehiclesController()
         {
+            // Setup test servers so we can fully vet the web api
             _server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
             _client = _server.CreateClient();
         }
