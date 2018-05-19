@@ -60,10 +60,10 @@ namespace vehicles_api.Controllers
                 return BadRequest();
             }
 
-            var todo = _context.Vehicles.Find(id);
+            var found = _context.Vehicles.Find(id);
 
             // If item is not found, we have a couple options:
-            if (todo == null)
+            if (found == null)
             {
                 // Option 1: 
                 // Vehicle not found by id, assume it's a new item and add it
@@ -75,7 +75,11 @@ namespace vehicles_api.Controllers
                 //return NotFound();
             }
 
-            _context.Vehicles.Update(item);
+            found.Year = item.Year;
+            found.Model = item.Model;
+            found.Make = item.Make;
+
+            _context.Vehicles.Update(found);
             _context.SaveChanges();
             return NoContent();
         }
