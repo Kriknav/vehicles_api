@@ -30,6 +30,7 @@ namespace vehicles_api
             services.AddDbContext<VehicleContext>(opt =>
                 opt.UseInMemoryDatabase("VehicleList"));
             services.AddSingleton<IVehicleFilterService, VehicleFilterService>();
+            services.AddCors();
             services.AddMvc();
         }
 
@@ -39,8 +40,13 @@ namespace vehicles_api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
             }
-
+            app.UseCors(builder => 
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetPreflightMaxAge(TimeSpan.FromSeconds(2520)));
             app.UseMvc();
         }
     }

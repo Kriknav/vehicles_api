@@ -52,15 +52,15 @@ namespace vehicles_api.Controllers
             return CreatedAtRoute("GetVehicle", new { id = item.Id }, item);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Vehicle item)
+        [HttpPut]
+        public IActionResult Update([FromBody] Vehicle item)
         {
-            if (item == null || item.Id != id || !ModelState.IsValid)
+            if (item == null || item.Id <= 0 || !ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var found = _context.Vehicles.Find(id);
+            var found = _context.Vehicles.Find(item.Id);
 
             // If item is not found, we have a couple options:
             if (found == null)

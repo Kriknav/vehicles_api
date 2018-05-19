@@ -198,7 +198,7 @@ namespace vehicles_api.tests
             val.Model = "Bogus";
 
             // Now let's try to update that vechicle
-            response = await _client.PutAsync("/vehicles/" + val.Id, ToByteArrayContent(val));
+            response = await _client.PutAsync("/vehicles", ToByteArrayContent(val));
             response.EnsureSuccessStatusCode();
             Assert.InRange((int)response.StatusCode, 200, 299); // Make sure the status code is success
             var input = val; // save what we sent for testing
